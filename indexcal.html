@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan & EMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Loan & EMI Calculator</h2>
+        <label for="loanAmount">Loan Amount (₹):</label>
+        <input type="number" id="loanAmount" placeholder="Enter loan amount" required>
+        
+        <label for="interestRate">Annual Interest Rate (%):</label>
+        <input type="number" id="interestRate" placeholder="Enter interest rate" required>
+        
+        <label for="loanDuration">Loan Duration (years):</label>
+        <input type="number" id="loanDuration" placeholder="Enter loan duration" required>
+        
+        <button onclick="calculateEMI()">Calculate EMI</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateEMI() {
+            let principal = parseFloat(document.getElementById('loanAmount').value);
+            let annualRate = parseFloat(document.getElementById('interestRate').value);
+            let years = parseInt(document.getElementById('loanDuration').value);
+            
+            if (isNaN(principal) || isNaN(annualRate) || isNaN(years) || principal <= 0 || annualRate <= 0 || years <= 0) {
+                document.getElementById('result').innerHTML = "<span style='color:red;'>Please enter valid inputs.</span>";
+                return;
+            }
+            
+            let monthlyRate = annualRate / (12 * 100);
+            let months = years * 12;
+            let emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+            emi = emi.toFixed(2);
+            
+            document.getElementById('result').innerHTML = `Your Monthly EMI: <strong>₹${emi}</strong>`;
+        }
+    </script>
+</body>
+</html>
