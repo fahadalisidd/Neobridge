@@ -22,4 +22,4 @@ CSS3 – responsive layout and design
 
 JavaScript (Vanilla) – interactivity and animation logic
 
-Live-Demo 
+Live-Demo https://fahadalisidd.github.io/Neobridge/
